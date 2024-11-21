@@ -13,3 +13,5 @@ var secondFraction = 13/25;
 
 var fractionResult = findBiggestFraction(firstFraction,secondFraction);
 console.log("Fraction " + fractionResult[0] + " with a value of " + fractionResult[1] + " is the biggest.");
+
+
