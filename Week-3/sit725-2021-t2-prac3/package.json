@@ -13,9 +13,9 @@
   "author": "Devna Pankhania",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/pankhd/SIT725/tree/main/Week%202/sit725-2021-t2-prac2-master/issues"
+    "url": "https://github.com/pankhd/SIT725/tree/main/Week%202/sit725-2021-t3-prac3-master/issues"
   },
-  "homepage": "https://github.com/pankhd/SIT725/tree/main/Week%202/sit725-2021-t2-prac2-master#readme",
+  "homepage": "https://github.com/pankhd/SIT725/tree/main/Week%202/sit725-2021-t3-prac3-master#readme",
   "dependencies": {
     "express": "^4.21.1",
     "materialize-css": "^1.0.0-rc.2"
