@@ -6,12 +6,6 @@ app.use(express.static(__dirname+'/public'))
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-const addNumbers = (number1, number2) => {
-    var num1 = parseInt(number1)
-    var num2 = parseInt(number2)
-    var result = num1 + num2;
-    return result;
-}
 
 app.get("/addTwoNumbers",(req,res) => {
     var number1 = req.query.number1;
