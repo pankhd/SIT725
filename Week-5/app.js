@@ -10,10 +10,6 @@ const pizzaSchema = new mongoose.Schema({
 
 // Export the Pizza model
 module.exports = mongoose.model("Pizza", pizzaSchema);
-This file defines the structure of a pizza entry using Mongoose.
-Controller (controllers/pizzaController.js)
-javascript
-Copy code
 const Pizza = require("../models/pizzaModel");
 
 // Display the pizza form

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= title %></title>
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+</head>
+<body>
+  <div class="container">
+    <h1 class="center-align">Add a New Pizza</h1>
+    <form action="/add-pizza" method="POST" class="col s12">
+      <div class="input-field">
+        <input id="name" name="name" type="text" required>
+        <label for="name">Pizza Name</label>
+      </div>
+      <div class="input-field">
+        <input id="ingredients" name="ingredients" type="text" required>
+        <label for="ingredients">Ingredients (comma-separated)</label>
+      </div>
+      <div class="input-field">
+        <input id="price" name="price" type="number" step="0.01" required>
+        <label for="price">Price</label>
+      </div>
+      <button type="submit" class="btn waves-effect waves-light">Add Pizza</button>
+    </form>
+  </div>
+</body>
+</html>
