@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
           row.appendChild(ingredientsCell);
   
           const priceCell = document.createElement('td');
-          priceCell.textContent = pizza.price.toFixed(2); // Format price to 2 decimal places
+          priceCell.textContent = pizza.price.toFixed(2); 
           row.appendChild(priceCell);
   
           pizzaTable.appendChild(row);
