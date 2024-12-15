@@ -8,4 +8,7 @@ const pizzaSchema = new mongoose.Schema({
 });
 
 // Export the Pizza model
-module.exports = mongoose.model("Pizza", pizzaSchema);
+const Pizza = mongoose.model('Pizza', pizzaSchema);
+
+module.exports = Pizza;
+

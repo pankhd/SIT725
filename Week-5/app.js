@@ -2,7 +2,6 @@ const express = require("express");
 const mongoose = require("mongoose");
 const path = require("path");
 const pizzaController = require("./controller/pizzaController");
-const Pizza = require("./controller/pizzaController");
 
 const app = express();
 const PORT = 3000;
@@ -23,7 +22,7 @@ mongoose
 // Define routes
 app.get("/", pizzaController.showForm);
 app.post("/add-pizza", pizzaController.addPizza);
-
+app.get("/all-pizzas", pizzaController.getAllPizzas);
 
 // Start the server
 app.listen(PORT, () => {

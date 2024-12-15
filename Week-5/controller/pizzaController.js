@@ -3,7 +3,7 @@ const Pizza = require("../models/pizzaModel");
 
 // Serve the HTML form for adding pizzas
 exports.showForm = (req, res) => {
-  res.sendFile(path.join(__dirname, "../public/index.html"));
+  res.sendFile(path.join(__dirname, "../public/form.html"));
 };
 
 // Add a new pizza to the database
