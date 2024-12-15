@@ -14,7 +14,7 @@ This application allows you to add a pizza to the database and get all pizza rec
 - [MongoDB](https://www.mongodb.com/) installed and running 
 
 
-## Run the applicationm
+## Run the application
 run mongod
 run node app.js - open browser on http://localhost:3000
 
