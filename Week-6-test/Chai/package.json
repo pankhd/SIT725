@@ -18,7 +18,6 @@
     "chai": "^5.1.2",
     "express": "^4.21.2",
     "mocha": "^11.0.1",
-    "mongoose": "^8.9.2",
-    "save-dev": "^0.0.1-security"
+    "mongoose": "^8.9.2"
   }
 }
