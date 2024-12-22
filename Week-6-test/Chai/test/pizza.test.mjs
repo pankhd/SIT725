@@ -26,7 +26,7 @@ describe('Test pizza API endpoint', function() {
   });
 
   it('Test /all-pizzas values and get request', async () => {
-    try {
+    try {-0
       const response = await axios.get(`${app}${getAllPizzas}`);
       expect(response.status).to.equal(200);
       expect(response.data.pizzas).to.be.an('array');
