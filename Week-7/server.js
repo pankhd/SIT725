@@ -13,24 +13,6 @@ app.use(express.urlencoded({ extended: true }));
 // Serve static files from the "public" directory
 app.use(express.static('public'));
 
-
-//socket.io component to emit a number ever 1 second and publish it on the socket
-//bind appp to http server for socket.io
-const http = require("http").createServer(app);
-const io = require("socket.io")(http);
-
-//create a socket test
-io.on("connection", (socket)=>{
-    console.log("Socket connected");
-    socket.on("disconnect", () =>{
-        console.log("User disconnected");
-    });
-    setInterval(()=>{
-        socket.emit("number", parseInt(Math.random()*10));
-    }, 1000)
-})
-
-
 // Connect to MongoDB
 mongoose
   .connect("mongodb://127.0.0.1:27017/pizzaDB")
@@ -42,7 +24,42 @@ app.get("/", pizzaController.showForm);
 app.post("/add-pizza", pizzaController.addPizza);
 app.get("/all-pizzas", pizzaController.getAllPizzas);
 
+app.get('/test', (req, res) => {
+  const randomNumber = Math.floor(Math.random() * 100);
+  res.json({ randomNumber });
+});
+
+// Create an HTTP server
+const http = require("http").createServer(app);
+
+// Initialize Socket.IO
+const io = require("socket.io")(http);
+
+// Handle Socket.IO connections
+io.on("connection", (socket) => {
+  console.log("Socket connected");
+
+  socket.on("disconnect", () => {
+    console.log("User disconnected");
+  });
+
+  setInterval(() => {
+    socket.emit("number", parseInt(Math.random() * 10));
+  }, 1000);
+
+
+    socket.on("requestNumber", () => {
+      const randomNumber = parseInt(Math.random() * 10);
+      socket.emit("number", randomNumber);
+    });
+  
+    socket.on("number", (msg) => {
+      console.log(`Received random number from server: ${msg}`);
+    });
+  });
+  
+
 // Start the server
-app.listen(PORT, () => {
+http.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
 });
