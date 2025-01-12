@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Google Pollen API Demo</title>
+  <style>
+    #map {
+      height: 500px;
+      width: 800px;
+      border: 1px solid black;
+    }
+    #search-bar {
+      position: right;
+      top: 10px;
+      left: 10px;
+      z-index: 1000;
+      background-color: #fff;
+      padding: 10px;
+      border: 1px solid #ddd;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+  </style>
+</head>
+<body>
+  <h1>Google Pollen Heatmap API</h1>
+  <div id="map"></div>
+  <div id="search-bar">
+    <input id="search-input" type="text" placeholder="Search...">
+    <button id="search-button">Search</button>
+  </div>
+  <script>
+    function initMap() {
+      const map = new google.maps.Map(document.getElementById("map"), {
+        center: { lat: 37.7749, lng: -122.4194 },
+        zoom: 13,
+      });
+      
+      // Add a tile layer to display the pollen data
+      const tileLayer = new google.maps.ImageMapType({
+        getTileUrl: function(tile, zoom) {
+          // Replace YOUR_API_KEY with your actual API key
+          return `https://pollen.googleapis.com/v1/mapTypes/TREE_UPI/heatmapTiles/${zoom}/${tile.x}/${tile.y}?key=YOUR_API_KEY`;
+        },
+        tileSize: new google.maps.Size(256, 256),
+      });
+      
+      // Add the tile layer to the map
+      map.overlayMapTypes.push(tileLayer);
+      
+      // Add event listener for search button
+      document.getElementById("search-button").addEventListener("click", function() {
+        const searchInput = document.getElementById("search-input").value;
+        const

@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Leaflet Map with Pollen Heatmap Tiles</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin=""/>
+  <style>
+    #map {
+      height: 800px;
+      width: 1500px;
+      border: 1px solid black;
+    }
+    #container {
+        position: absolute;
+        top: 60px; 
+        left: 60px; 
+        z-index: 1000;
+    }
+    .search-box {
+        position: absolute;
+        top: 10px;
+        left: 50px;
+        z-index: 1000;
+        background: white;
+        padding: 5px;
+        border: 1px solid black;
+        border-radius: 10px;
+      .tree
+    }
+  </style>
+</head>
+<body>
+  <div id="container">
+    <button id="tree">TREE</button>
+    <button id="grass">GRASS</button>
+    <button id="weed">WEED</button>
+  </div>
+  <div id="map">
+    <div class="search-box">
+      <input type="text" id="search-input" placeholder="Search location...">
+      <button type="button" id="search-button">Go</button>
+    </div>
+  </div>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+  <script>
+    // Define the geographical bounds for Melbourne
+    var southWest = L.latLng(-44.261, 112.596),
+        northEast = L.latLng(-10.460, 154.512);
+    var bounds = L.latLngBounds(southWest, northEast);
+
+    // Initialize the map and set its view to Melbourne, and set maxBounds
+    var map = L.map('map', {
+      center: [-37.8136, 144.9631], // Center of Melbourne
+      zoom: 6,
+      minZoom: 4,
+      maxBounds: bounds,  // Set the maximum bounds to Melbourne
+      maxBoundsViscosity: 1.0  // Optional: make the bounds more "sticky"
+    });
+
+    // Add the base tile layer from OpenStreetMap
+    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 12,
+      attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+    }).addTo(map);
+
+
+    // Function to search for a location and move the map
+    document.getElementById('search-button').onclick = function() {
+        var query = document.getElementById('search-input').value;
+        var url = `https://nominatim.openstreetmap.org/search?format=json&q=${query}`;
+        
+        fetch(url)
+          .then(response => response.json())
+          .then(data => {
+            if (data.length > 0) {
+              var lat = data[0].lat;
+              var lon = data[0].lon;
+              map.setView([lat, lon], 13);
+            } else {
+              alert("Location not found!");
+            }
+          })
+          .catch(error => {
+            console.error('Error:', error);
+            alert("An error occurred while searching for the location.");
+          });
+      };
+
+
+    // Add the Google Pollen Heatmap tile layer
+    var apiKey = 'AIzaSyCi7FfK3Ck_N0NgZF_0xz0UsXuxxKrg7LY'; // Replace with your actual API key
+    let pollen = "GRASS_UPI";
+
+    function updatePollenLayer() {
+      console.log(`Updating layer to: ${pollen}`);
+      L.tileLayer(`https://pollen.googleapis.com/v1/mapTypes/${pollen}/heatmapTiles/{z}/{x}/{y}?key=${apiKey}`, {
+        attribution: 'Google Pollen Heatmap',
+        opacity: 0.5
+      }).addTo(map);
+    }
+
+    // Initial layer
+    updatePollenLayer();
+
+    // Add event listeners to update the pollen type
+    document.getElementById("tree").addEventListener("click", function() {
+      pollen = "TREE_UPI";
+      console.log('Tree button clicked');
+      map.eachLayer(function(layer) {
+        if (layer._url && layer._url.includes('pollen.googleapis.com')) {
+          map.removeLayer(layer);
+        }
+      });
+      updatePollenLayer();
+    });
+
+    document.getElementById("grass").addEventListener("click", function() {
+      pollen = "GRASS_UPI";
+      console.log('Grass button clicked');
+      map.eachLayer(function(layer) {
+        if (layer._url && layer._url.includes('pollen.googleapis.com')) {
+          map.removeLayer(layer);
+        }
+      });
+      updatePollenLayer();
+    });
+
+    document.getElementById("weed").addEventListener("click", function() {
+      pollen = "WEED_UPI";
+      console.log('Weed button clicked');
+      map.eachLayer(function(layer) {
+        if (layer._url && layer._url.includes('pollen.googleapis.com')) {
+          map.removeLayer(layer);
+        }
+      });
+      updatePollenLayer();
+    });
+  </script>
+</body>
+</html>
